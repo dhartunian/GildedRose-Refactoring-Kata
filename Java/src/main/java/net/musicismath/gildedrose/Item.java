@@ -1,4 +1,4 @@
-package com.gildedrose;
+package net.musicismath.gildedrose;
 
 public class Item {
 
