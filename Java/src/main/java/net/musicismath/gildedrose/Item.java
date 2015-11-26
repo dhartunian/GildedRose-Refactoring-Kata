@@ -11,6 +11,10 @@ public class Item {
     public int sellIn;
     public int quality;
 
+    public Boolean isExpired() {
+        return sellIn < 0;
+    }
+
     public void updateQuality() {
         if (!name.equals("Aged Brie")
             && !name.equals("Backstage passes to a TAFKAL80ETC concert")) {

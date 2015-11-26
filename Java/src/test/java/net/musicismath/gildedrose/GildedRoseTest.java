@@ -20,4 +20,14 @@ public class GildedRoseTest {
         assertThat(item.quality).isEqualTo(19);
     }
 
+    @Test
+    public void updateQuality_isExpired() {
+        Item item = new Item("foo", 1, 20);
+        assertThat(item.isExpired()).isFalse();
+        item.updateQuality();
+        assertThat(item.isExpired()).isFalse();
+        item.updateQuality();
+        assertThat(item.isExpired()).isTrue();
+    }
+
 }
