@@ -30,4 +30,17 @@ public class GildedRoseTest {
         assertThat(item.isExpired()).isTrue();
     }
 
+    @Test
+    public void updateQuality_brieIncreases() {
+        Item brie = Item.brie(10, 20);
+        brie.updateQuality();
+        assertThat(brie.quality).isEqualTo(21);
+    }
+
+    @Test
+    public void updateQuality_brieLimit50() {
+        Item brie = Item.brie(10, 50);
+        brie.updateQuality();
+        assertThat(brie.quality).isEqualTo(50);
+    }
 }

@@ -7,6 +7,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class Item {
 
+    private static final String AGED_BRIE = "Aged Brie";
+    private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+
     public String name;
     public int sellIn;
     public int quality;
@@ -15,11 +19,23 @@ public class Item {
         return sellIn < 0;
     }
 
+    public static Item brie(int sellIn, int quality) {
+        return new Item(AGED_BRIE, sellIn, quality);
+    }
+
+    public static Item backstagePasses(int sellIn, int quality) {
+        return new Item(BACKSTAGE_PASSES, sellIn, quality);
+    }
+
+    public static Item sulfuras(int sellIn, int quality) {
+        return new Item(SULFURAS, sellIn, quality);
+    }
+
     public void updateQuality() {
-        if (!name.equals("Aged Brie")
-            && !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        if (isBrie()
+            && !isBackstagePasses()) {
             if (quality > 0) {
-                if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+                if (!isSulfuras()) {
                     quality = quality - 1;
                 }
             }
@@ -27,7 +43,7 @@ public class Item {
             if (quality < 50) {
                 quality = quality + 1;
 
-                if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (isBackstagePasses()) {
                     if (sellIn < 11) {
                         if (quality < 50) {
                             quality = quality + 1;
@@ -43,15 +59,15 @@ public class Item {
             }
         }
 
-        if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+        if (!isSulfuras()) {
             sellIn = sellIn - 1;
         }
 
         if (sellIn < 0) {
-            if (!name.equals("Aged Brie")) {
-                if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!isBrie()) {
+                if (!isBackstagePasses()) {
                     if (quality > 0) {
-                        if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+                        if (!isSulfuras()) {
                             quality = quality - 1;
                         }
                     }
@@ -64,6 +80,18 @@ public class Item {
                 }
             }
         }
+    }
+
+    private boolean isSulfuras() {
+        return name.equals(SULFURAS);
+    }
+
+    private boolean isBackstagePasses() {
+        return name.equals(BACKSTAGE_PASSES);
+    }
+
+    private boolean isBrie() {
+        return !name.equals(AGED_BRIE);
     }
 
 }
