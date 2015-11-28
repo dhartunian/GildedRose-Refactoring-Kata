@@ -1,6 +1,10 @@
 package net.musicismath.gildedrose;
 
 class GildedRose {
+    static final String BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
+    static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+    static final String BRIE = "Aged Brie";
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -65,14 +69,14 @@ class GildedRose {
     }
 
     private boolean isSulfuras(Item item) {
-        return item.name.equals("Sulfuras, Hand of Ragnaros");
+        return item.name.equals(SULFURAS);
     }
 
     private boolean isBackstagePasses(Item item) {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
+        return item.name.equals(BACKSTAGE);
     }
 
     private boolean isBrie(Item item) {
-        return item.name.equals("Aged Brie");
+        return item.name.equals(BRIE);
     }
 }
