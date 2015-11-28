@@ -17,66 +17,57 @@ class GildedRose {
         }
     }
 
-    private void updateQuality(Item item) {
-        if (!isBrie(item)
-                && !isBackstagePasses(item)) {
-            if (item.quality > 0) {
-                if (!isSulfuras(item)) {
-                    item.quality = item.quality - 1;
-                }
-            }
+    private void updateQualityBrie(Item item) {
+        assert item.name.equals(BRIE);
+        item.sellIn--;
+        if (item.sellIn < 0 ) {
+            item.quality = Math.min(item.quality + 2, 50);
         } else {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-
-                if (isBackstagePasses(item)) {
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-                }
-            }
+            item.quality = Math.min(item.quality + 1, 50);
         }
+    }
 
-        if (!isSulfuras(item)) {
-            item.sellIn = item.sellIn - 1;
+    private void updateQualityBackstagePasses(Item item) {
+        assert item.name.equals(BACKSTAGE);
+        item.sellIn--;
+        if (item.sellIn < 10 && item.sellIn >= 5) {
+            item.quality = Math.min(item.quality + 2, 50);
+        } else if (item.sellIn < 5 && item.sellIn >= 0) {
+            item.quality = Math.min(item.quality + 3, 50);
+        } else if (item.sellIn < 0) {
+            item.quality = 0;
+        } else {
+            item.quality = Math.min(item.quality + 1 , 50);
         }
+    }
 
+    private void updateQualitySulfuras(Item item) {
+        assert item.name.equals(SULFURAS);
+    }
+
+    private void updateQualityDefault(Item item) {
+        item.sellIn--;
         if (item.sellIn < 0) {
-            if (!isBrie(item)) {
-                if (!isBackstagePasses(item)) {
-                    if (item.quality > 0) {
-                        if (!isSulfuras(item)) {
-                            item.quality = item.quality - 1;
-                        }
-                    }
-                } else {
-                    item.quality = item.quality - item.quality;
-                }
-            } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-            }
+            item.quality = Math.max(item.quality - 2, 0);
+        } else {
+            item.quality = Math.max(item.quality - 1, 0);
         }
     }
 
-    private boolean isSulfuras(Item item) {
-        return item.name.equals(SULFURAS);
+    private void updateQuality(Item item) {
+        switch (item.name) {
+            case SULFURAS:
+                updateQualitySulfuras(item);
+                break;
+            case BRIE:
+                updateQualityBrie(item);
+                break;
+            case BACKSTAGE:
+                updateQualityBackstagePasses(item);
+                break;
+            default:
+                updateQualityDefault(item);
+        }
     }
 
-    private boolean isBackstagePasses(Item item) {
-        return item.name.equals(BACKSTAGE);
-    }
-
-    private boolean isBrie(Item item) {
-        return item.name.equals(BRIE);
-    }
 }
