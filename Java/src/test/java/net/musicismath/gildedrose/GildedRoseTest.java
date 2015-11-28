@@ -55,7 +55,7 @@ public class GildedRoseTest {
 
     @Test
     public void updateQuality_agedBrieIncreases() {
-        Item item = new Item(GildedRose.BRIE, 2, 1);
+        Item item = new Item(AgedBrie.BRIE, 2, 1);
         GildedRose app = wrapInApp(item);
 
         app.updateQuality();
@@ -68,7 +68,7 @@ public class GildedRoseTest {
 
     @Test
     public void updateQuality_neverMoreThan50() {
-        Item item = new Item(GildedRose.BRIE, 2, 49);
+        Item item = new Item(AgedBrie.BRIE, 2, 49);
         GildedRose app = wrapInApp(item);
 
         app.updateQuality();
@@ -81,7 +81,7 @@ public class GildedRoseTest {
 
     @Test
     public void updateQuality_sulfurasNeverDecreases() {
-        Item item = new Item(GildedRose.SULFURAS, 2, 80);
+        Item item = new Item(Sulfuras.SULFURAS, 2, 80);
         GildedRose app = wrapInApp(item);
 
         app.updateQuality();
@@ -97,7 +97,7 @@ public class GildedRoseTest {
 
     @Test
     public void updateQuality_backstageIncreases() {
-        Item item = new Item(GildedRose.BACKSTAGE, 15, 10);
+        Item item = new Item(BackstagePasses.BACKSTAGE, 15, 10);
         GildedRose app = wrapInApp(item);
 
         assertUpdatesToSellInAndQuality(app,
